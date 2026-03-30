@@ -71,7 +71,7 @@ export function SavingsClient() {
       {/* Page Header */}
       <div className={styles.pageHeader}>
         <div>
-          <h1 className={styles.title}>Coffres d'Épargne</h1>
+          <h1 className={styles.title}>Coffres d&apos;Épargne</h1>
           <p className={styles.subtitle}>Constituez vos réserves financières, un coffre à la fois.</p>
         </div>
         <button className={styles.newPotBtn} onClick={() => setIsCreatePotOpen(true)}>
@@ -102,7 +102,7 @@ export function SavingsClient() {
       ) : pots.length === 0 ? (
         <div className={styles.emptyState}>
           <PiggyBank size={48} className={styles.emptyIcon} />
-          <p className={styles.emptyText}>Aucun coffre d'épargne pour l'instant.</p>
+          <p className={styles.emptyText}>Aucun coffre d&apos;épargne pour l&apos;instant.</p>
           <button className={styles.newPotBtn} onClick={() => setIsCreatePotOpen(true)}>
             <Plus size={18} />
             Créer mon premier coffre
@@ -191,7 +191,7 @@ export function SavingsClient() {
           <div className={styles.confirmActions}>
             <Button variant="ghost" onClick={() => setDeletingEntry(null)}>Annuler</Button>
             <Button variant="primary" onClick={handleDeleteEntry} style={{ backgroundColor: '#c62828', borderColor: '#c62828' }}>
-              Supprimer l'entrée
+              Supprimer l&apos;entrée
             </Button>
           </div>
         </div>
