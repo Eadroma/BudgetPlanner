@@ -100,8 +100,10 @@
     "amount": "MONTANT",
     "date": "DATE",
     "category": "CATÉGORIE",
-    "description": "NOTE (OPTIONNEL)",
-    "submit": "Confirmer l'entrée →",
+    "description": "Description",
+    "submit": "Confirmer l'inscription →",
+    "selectCategory": "Sélect. catégorie...",
+    "descriptionPlaceholder": "Détails (facultatif)...",
     "member": "Membre"
   },
   "dashboard": {

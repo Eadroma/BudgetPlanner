@@ -120,7 +120,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) =>
           required
           disabled={isSubmitting}
         >
-          <option value="" disabled>Select category...</option>
+          <option value="" disabled>{t('selectCategory')}</option>
           <option value="Loyer - Appartement">Loyer (Rent)</option>
           <option value="Adobe Creative Cloud">Abonnement (Subscription)</option>
           <option value="Freelance Payout">Freelance</option>
@@ -170,7 +170,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) =>
           className={styles.textarea}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Write a short detail..."
+          placeholder={t('descriptionPlaceholder')}
           disabled={isSubmitting}
         />
       </div>
