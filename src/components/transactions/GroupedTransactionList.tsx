@@ -14,7 +14,8 @@ import {
   Pencil,
   Trash2
 } from 'lucide-react'
-import type { Transaction } from '@/types/transaction'
+import * as Icons from 'lucide-react'
+import type { Transaction, Category } from '@/types/transaction'
 import { useMembers } from '@/hooks/useMembers'
 import styles from './GroupedTransactionList.module.css'
 
@@ -25,7 +26,11 @@ interface GroupedTransactionListProps {
   onDelete?: (tx: Transaction) => void
 }
 
-const getCategoryIcon = (category: string) => {
+const getCategoryIcon = (category: string, catData?: Category | null) => {
+  if (catData?.icon) {
+    const IconComponent = (Icons as any)[catData.icon] || Receipt
+    return <IconComponent size={24} />
+  }
   const cat = category?.toLowerCase() || ''
   if (cat.includes('loyer')) return <Building2 size={24} />
   if (cat.includes('dette')) return <CreditCard size={24} />
@@ -258,8 +263,11 @@ export function GroupedTransactionList({ transactions, loading, onEdit, onDelete
             {data.items.map(tx => (
               <div key={tx.id} className={styles.card}>
                 <div className={styles.cardLeft}>
-                  <div className={`${styles.iconBox} ${getIconTheme(tx.category, tx.type)}`}>
-                    {getCategoryIcon(tx.category)}
+                  <div 
+                    className={styles.iconBox}
+                    style={tx.category_data?.color ? { backgroundColor: `${tx.category_data.color}15`, color: tx.category_data.color } : {}}
+                  >
+                    {getCategoryIcon(tx.category, tx.category_data)}
                   </div>
                   <div className={styles.textStack}>
                     <div className={styles.titleText}>{tx.description || tx.category}</div>
@@ -271,11 +279,38 @@ export function GroupedTransactionList({ transactions, loading, onEdit, onDelete
                 </div>
                 
                 <div className={styles.cardRight}>
-                  <div className={`${styles.amount} ${tx.type === 'income' ? styles.positive : styles.negative}`}>
-                    {formatCurrency(tx.amount, tx.type, true)}
+                  <div className={styles.rightTop}>
+                    {(onEdit || onDelete) && (
+                      <div className={styles.actionsGroup}>
+                        {onEdit && (
+                          <button 
+                            className={`${styles.actionBtn} ${styles.editBtn}`}
+                            onClick={() => onEdit(tx)}
+                            title="Edit"
+                          >
+                            <Pencil size={16} />
+                          </button>
+                        )}
+                        {onDelete && (
+                          <button 
+                            className={`${styles.actionBtn} ${styles.deleteBtn}`}
+                            onClick={() => onDelete(tx)}
+                            title="Delete"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    <div className={`${styles.amount} ${tx.type === 'income' ? styles.positive : styles.negative}`}>
+                      {formatCurrency(tx.amount, tx.type, true)}
+                    </div>
                   </div>
-                  <div className={`${styles.chip} ${getCategoryTheme(tx.category, tx.type)}`}>
-                    {tx.type === 'income' ? 'INCOME' : tx.category}
+                  <div 
+                    className={`${styles.chip} ${getCategoryTheme(tx.category, tx.type)}`}
+                    style={tx.category_data?.color ? { backgroundColor: `${tx.category_data.color}20`, color: tx.category_data.color } : {}}
+                  >
+                    {tx.category_data?.name || (tx.type === 'income' ? 'INCOME' : tx.category)}
                   </div>
                   {tx.member && (
                     <div 
@@ -291,29 +326,6 @@ export function GroupedTransactionList({ transactions, loading, onEdit, onDelete
                     </div>
                   )}
                 </div>
-
-                {(onEdit || onDelete) && (
-                  <div className={styles.actionsGroup}>
-                    {onEdit && (
-                      <button 
-                        className={`${styles.actionBtn} ${styles.editBtn}`}
-                        onClick={() => onEdit(tx)}
-                        title="Edit"
-                      >
-                        <Pencil size={16} />
-                      </button>
-                    )}
-                    {onDelete && (
-                      <button 
-                        className={`${styles.actionBtn} ${styles.deleteBtn}`}
-                        onClick={() => onDelete(tx)}
-                        title="Delete"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    )}
-                  </div>
-                )}
               </div>
             ))}
           </div>

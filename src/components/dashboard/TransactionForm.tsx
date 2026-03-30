@@ -3,8 +3,9 @@ import { useTranslations } from 'next-intl'
 import { Plus } from 'lucide-react'
 import { Modal } from '../ui/Modal'
 import { Button } from '../ui/Button'
-import type { Transaction, NewTransaction, TransactionType } from '@/types/transaction'
+import type { Transaction, NewTransaction, TransactionType, Category } from '@/types/transaction'
 import { useMembers } from '@/hooks/useMembers'
+import { useCategories } from '@/hooks/useCategories'
 import styles from './TransactionForm.module.css'
 
 interface TransactionFormProps {
@@ -14,13 +15,7 @@ interface TransactionFormProps {
   subtitle?: string
 }
 
-const DEFAULT_CATEGORIES = [
-  "Loyer - Appartement",
-  "Adobe Creative Cloud",
-  "Freelance Payout",
-  "Le Petit Bistro",
-  "Groceries"
-]
+// Remove DEFAULT_CATEGORIES as we now use database categories
 
 /**
  * SRP: Composant responsable uniquement du formulaire de création de transaction.
@@ -36,15 +31,15 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   const [amount, setAmount] = useState(initialData?.amount.toString() || '')
   const [type, setType] = useState<TransactionType>(initialData?.type || 'expense')
   const [category, setCategory] = useState(initialData?.category || '')
-  const [customCategories, setCustomCategories] = useState<string[]>([])
+  const [categoryId, setCategoryId] = useState<string | null>(initialData?.category_id || null)
+  
+  const { categories, addCategory } = useCategories()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newCategoryName, setNewCategoryName] = useState('')
   const [date, setDate] = useState(initialData?.date || new Date().toISOString().split('T')[0])
   const [description, setDescription] = useState(initialData?.description || '')
   const { members } = useMembers()
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(initialData?.member_id || null)
-
-  const allCategories = [...DEFAULT_CATEGORIES, ...customCategories]
 
   // Pre-select default member
   React.useEffect(() => {
@@ -57,21 +52,33 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
       }
     }
   }, [members, selectedMemberId])
+
+  // Sync category string with categoryId if needed
+  const handleCategorySelect = (id: string) => {
+    const selected = categories.find(c => c.id === id)
+    if (selected) {
+      setCategoryId(id)
+      setCategory(selected.name)
+    }
+  }
   
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleAddCategory = (e: React.FormEvent) => {
+  const handleAddCategory = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!newCategoryName.trim()) return
     
-    const trimmedBrand = newCategoryName.trim()
-    if (!allCategories.includes(trimmedBrand)) {
-      setCustomCategories(prev => [...prev, trimmedBrand])
+    try {
+      await addCategory({ 
+        name: newCategoryName.trim(), 
+        type: type 
+      })
+      setNewCategoryName('')
+      setIsModalOpen(false)
+    } catch (err) {
+      console.error('Failed to add category:', err)
     }
-    setCategory(trimmedBrand)
-    setNewCategoryName('')
-    setIsModalOpen(false)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -86,6 +93,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
         amount: parseFloat(amount),
         type,
         category,
+        category_id: categoryId,
         date,
         description: description || undefined,
         member_id: selectedMemberId
@@ -93,8 +101,8 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
       // Reset
       setAmount('')
       setCategory('')
+      setCategoryId(null)
       setDescription('')
-      // Keep custom categories for next entry
     } catch (err: any) {
       setError(err.message)
     } finally {
@@ -152,15 +160,17 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           <div className={styles.selectWrapper}>
             <select
               className={styles.select}
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              value={categoryId || ''}
+              onChange={(e) => handleCategorySelect(e.target.value)}
               required
               disabled={isSubmitting}
             >
               <option value="" disabled>{t('selectCategory')}</option>
-              {allCategories.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
+              {categories
+                .filter(c => c.type === type)
+                .map(cat => (
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
             </select>
             <button
               type="button"

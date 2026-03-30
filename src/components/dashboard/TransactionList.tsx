@@ -14,7 +14,8 @@ import {
   Banknote,
   Receipt
 } from 'lucide-react'
-import type { Transaction } from '@/types/transaction'
+import * as Icons from 'lucide-react'
+import type { Transaction, Category } from '@/types/transaction'
 import { useMembers } from '@/hooks/useMembers'
 import styles from './TransactionList.module.css'
 
@@ -29,7 +30,11 @@ interface TransactionListProps {
   onDelete?: (tx: Transaction) => void
 }
 
-const getCategoryIcon = (category: string) => {
+const getCategoryIcon = (category: string, catData?: Category | null) => {
+  if (catData?.icon) {
+    const IconComponent = (Icons as any)[catData.icon] || Receipt
+    return <IconComponent size={20} />
+  }
   const cat = category?.toLowerCase() || ''
   if (cat.includes('loyer')) return <Building2 size={20} />
   if (cat.includes('dette')) return <CreditCard size={20} />
@@ -124,8 +129,11 @@ export const TransactionList: React.FC<TransactionListProps> = ({
         {displayTransactions.map((tx) => (
           <div key={tx.id} className={styles.item}>
             <div className={styles.itemLeft}>
-              <div className={styles.iconBox}>
-                {getCategoryIcon(tx.category)}
+              <div 
+                className={styles.iconBox}
+                style={tx.category_data?.color ? { backgroundColor: `${tx.category_data.color}15`, color: tx.category_data.color, borderColor: `${tx.category_data.color}30` } : {}}
+              >
+                {getCategoryIcon(tx.category, tx.category_data)}
               </div>
               <div className={styles.textStack}>
                 <div className={styles.descText}>{tx.description || tx.category}</div>
@@ -134,37 +142,41 @@ export const TransactionList: React.FC<TransactionListProps> = ({
             </div>
             
             <div className={styles.itemRight}>
-              <div className={`${styles.categoryChip} ${getCategoryTheme(tx.category, tx.type)}`}>
-                {tx.type === 'income' ? 'INCOME' : tx.category}
-              </div>
-              <div
-                className={`${styles.amount} ${tx.type === 'income' ? styles.positive : styles.negative}`}
-              >
-                {formatCurrency(tx.amount, tx.type)}
-              </div>
-
-              {(onEdit || onDelete) && (
-                <div className={styles.actionsGroup}>
-                  {onEdit && (
-                    <button 
-                      className={`${styles.actionBtn} ${styles.editBtn}`}
-                      onClick={() => onEdit(tx)}
-                      title="Edit"
-                    >
-                      <Pencil size={14} />
-                    </button>
-                  )}
-                  {onDelete && (
-                    <button 
-                      className={`${styles.actionBtn} ${styles.deleteBtn}`}
-                      onClick={() => onDelete(tx)}
-                      title="Delete"
-                    >
-                      <Trash2 size={14} />
-                    </button>
-                  )}
+              <div className={styles.rightTop}>
+                {(onEdit || onDelete) && (
+                  <div className={styles.actionsGroup}>
+                    {onEdit && (
+                      <button 
+                        className={`${styles.actionBtn} ${styles.editBtn}`}
+                        onClick={() => onEdit(tx)}
+                        title="Edit"
+                      >
+                        <Pencil size={14} />
+                      </button>
+                    )}
+                    {onDelete && (
+                      <button 
+                        className={`${styles.actionBtn} ${styles.deleteBtn}`}
+                        onClick={() => onDelete(tx)}
+                        title="Delete"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    )}
+                  </div>
+                )}
+                <div
+                  className={`${styles.amount} ${tx.type === 'income' ? styles.positive : styles.negative}`}
+                >
+                  {formatCurrency(tx.amount, tx.type)}
                 </div>
-              )}
+              </div>
+              <div 
+                className={`${styles.categoryChip} ${getCategoryTheme(tx.category, tx.type)}`}
+                style={tx.category_data?.color ? { backgroundColor: `${tx.category_data.color}20`, color: tx.category_data.color } : {}}
+              >
+                {tx.category_data?.name || (tx.type === 'income' ? 'INCOME' : tx.category)}
+              </div>
             </div>
           </div>
         ))}

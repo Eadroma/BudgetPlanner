@@ -10,7 +10,7 @@ export const fetchTransactions = async (): Promise<Transaction[]> => {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('transactions')
-    .select('*, member:members(*)')
+    .select('*, member:members(*), category_data:categories(*)')
     .order('date', { ascending: false })
     .order('created_at', { ascending: false })
 
@@ -28,9 +28,10 @@ export const createTransaction = async (transaction: NewTransaction): Promise<Tr
     .insert([{ 
       ...transaction, 
       user_id: user.id,
-      member_id: transaction.member_id || null 
+      member_id: transaction.member_id || null,
+      category_id: transaction.category_id || null
     }])
-    .select('*, member:members(*)')
+    .select('*, member:members(*), category_data:categories(*)')
     .single()
 
   if (error) throw error
@@ -52,7 +53,7 @@ export const updateTransaction = async (id: string, updates: Partial<NewTransact
     .from('transactions')
     .update(updates)
     .eq('id', id)
-    .select('*, member:members(*)')
+    .select('*, member:members(*), category_data:categories(*)')
     .single()
 
   if (error) throw error
