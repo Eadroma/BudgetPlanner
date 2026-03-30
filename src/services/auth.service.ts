@@ -22,7 +22,7 @@ export async function signUpWithEmail(registerData: RegisterData) {
     email: registerData.email,
     password: registerData.password,
     options: {
-      emailRedirectTo: `${window.location.origin}/auth/callback`
+      emailRedirectTo: `${window.location.origin}${window.location.pathname.startsWith('/fr') ? '/fr' : '/en'}/auth/callback`
     }
   })
   return { data, error: mapError(error) }
