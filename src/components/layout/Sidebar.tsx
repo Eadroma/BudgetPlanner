@@ -44,37 +44,30 @@ export function Sidebar({ locale }: SidebarProps) {
           <span className={styles.brandName}>Echelon</span>
         </div>
       </div>
-      
+
       <nav className={styles.nav}>
-        <Link 
-          href={`/${locale}/dashboard`} 
+        <Link
+          href={`/${locale}/dashboard`}
           className={`${styles.navItem} ${isActive('/dashboard') ? styles.active : ''}`}
         >
           <LayoutDashboard className={styles.icon} size={20} />
           <span>{t('dashboard')}</span>
         </Link>
-        <Link 
-          href={`/${locale}/transactions`} 
+        <Link
+          href={`/${locale}/transactions`}
           className={`${styles.navItem} ${isActive('/transactions') ? styles.active : ''}`}
         >
           <ArrowRightLeft className={styles.icon} size={20} />
           <span>{t('transactions', { default: 'Transactions' })}</span>
         </Link>
-        <Link 
-          href={`/${locale}/settings`} 
+        <Link
+          href={`/${locale}/settings`}
           className={`${styles.navItem} ${isActive('/settings') ? styles.active : ''}`}
         >
           <Settings className={styles.icon} size={20} />
           <span>{t('settings', { default: 'Paramètres' })}</span>
         </Link>
       </nav>
-
-      <div className={styles.ctaWrapper}>
-        <Link href={`/${locale}/dashboard#add`} className={styles.addTxBtn}>
-          <Plus size={18} />
-          <span>{t('addTransaction')}</span>
-        </Link>
-      </div>
 
       <div className={styles.bottom}>
         <div className={styles.userInfo}>
@@ -90,7 +83,7 @@ export function Sidebar({ locale }: SidebarProps) {
             {user?.email}
           </div>
         </div>
-        
+
         <div className={styles.actions}>
           <LanguageSwitch currentLocale={locale} />
           <button onClick={() => signOut(locale)} className={styles.logoutBtn} title={t('logout')}>
