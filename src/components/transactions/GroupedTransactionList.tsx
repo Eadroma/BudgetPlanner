@@ -10,7 +10,9 @@ import {
   Banknote,
   Receipt,
   Filter,
-  ArrowUpDown
+  ArrowUpDown,
+  Pencil,
+  Trash2
 } from 'lucide-react'
 import type { Transaction } from '@/types/transaction'
 import { useMembers } from '@/hooks/useMembers'
@@ -19,6 +21,8 @@ import styles from './GroupedTransactionList.module.css'
 interface GroupedTransactionListProps {
   transactions: Transaction[]
   loading: boolean
+  onEdit?: (tx: Transaction) => void
+  onDelete?: (tx: Transaction) => void
 }
 
 const getCategoryIcon = (category: string) => {
@@ -49,7 +53,7 @@ const getIconTheme = (category: string, type: 'income' | 'expense') => {
   return styles.iconGeneric
 }
 
-export function GroupedTransactionList({ transactions, loading }: GroupedTransactionListProps) {
+export function GroupedTransactionList({ transactions, loading, onEdit, onDelete }: GroupedTransactionListProps) {
   const locale = useLocale()
   const t = useTranslations('Dashboard')
 
@@ -60,12 +64,13 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
   const [searchQuery, setSearchQuery] = useState('')
   const { members } = useMembers()
 
-  const formatCurrency = (val: number, forceSign: boolean = false) => {
+  const formatCurrency = (val: number, type: 'income' | 'expense', forceSign: boolean = false) => {
+    const value = type === 'expense' ? -Math.abs(val) : Math.abs(val)
     return new Intl.NumberFormat(locale === 'fr' ? 'fr-FR' : 'en-US', {
       style: 'currency',
       currency: 'EUR',
       signDisplay: forceSign ? 'always' : 'auto'
-    }).format(val)
+    }).format(value)
   }
 
   const { uniqueCategories, uniqueMonths } = useMemo(() => {
@@ -144,8 +149,17 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
     // 4. Sort Items within groups
     sortedGroups.forEach(group => {
       group[1].items.sort((a, b) => {
-        if (sortOrder === 'desc') return new Date(b.date).getTime() - new Date(a.date).getTime()
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
+        const dateA = new Date(a.date).getTime()
+        const dateB = new Date(b.date).getTime()
+        
+        if (dateA !== dateB) {
+          return sortOrder === 'desc' ? dateB - dateA : dateA - dateB
+        }
+        
+        // Fallback to created_at
+        return sortOrder === 'desc' 
+          ? b.created_at.localeCompare(a.created_at)
+          : a.created_at.localeCompare(b.created_at)
       })
     })
 
@@ -236,7 +250,7 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
             <h2 className={styles.monthTitle}>{monthString}</h2>
             <div className={styles.monthTotal}>
               <span className={styles.totalLabel}>{t('total', { default: 'TOTAL' })}:</span>
-              <span className={styles.totalValue}>{formatCurrency(data.total)}</span>
+              <span className={styles.totalValue}>{formatCurrency(data.total, data.total >= 0 ? 'income' : 'expense')}</span>
             </div>
           </div>
           
@@ -258,7 +272,7 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
                 
                 <div className={styles.cardRight}>
                   <div className={`${styles.amount} ${tx.type === 'income' ? styles.positive : styles.negative}`}>
-                    {formatCurrency(tx.amount, true)}
+                    {formatCurrency(tx.amount, tx.type, true)}
                   </div>
                   <div className={`${styles.chip} ${getCategoryTheme(tx.category, tx.type)}`}>
                     {tx.type === 'income' ? 'INCOME' : tx.category}
@@ -277,6 +291,29 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
                     </div>
                   )}
                 </div>
+
+                {(onEdit || onDelete) && (
+                  <div className={styles.actionsGroup}>
+                    {onEdit && (
+                      <button 
+                        className={`${styles.actionBtn} ${styles.editBtn}`}
+                        onClick={() => onEdit(tx)}
+                        title="Edit"
+                      >
+                        <Pencil size={16} />
+                      </button>
+                    )}
+                    {onDelete && (
+                      <button 
+                        className={`${styles.actionBtn} ${styles.deleteBtn}`}
+                        onClick={() => onDelete(tx)}
+                        title="Delete"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>

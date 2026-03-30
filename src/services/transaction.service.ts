@@ -12,6 +12,7 @@ export const fetchTransactions = async (): Promise<Transaction[]> => {
     .from('transactions')
     .select('*, member:members(*)')
     .order('date', { ascending: false })
+    .order('created_at', { ascending: false })
 
   if (error) throw error
   return data || []

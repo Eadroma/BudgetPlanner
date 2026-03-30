@@ -40,3 +40,19 @@
     position: static;
   }
 }
+
+.confirmContent {
+  padding: 1rem 0;
+}
+
+.confirmContent p {
+  color: var(--color-on-surface-variant);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
