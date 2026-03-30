@@ -6,7 +6,7 @@ import { Pencil, Trash2, PiggyBank, Plane, Home, Car, GraduationCap, Heart, Shie
 import type { SavingsPot } from '@/types/savings'
 import styles from './PotCard.module.css'
 
-const ICON_MAP: Record<string, React.FC<{ size?: number; color?: string }>> = {
+const ICON_MAP: Record<string, React.FC<{ size?: number | string; color?: string }>> = {
   PiggyBank, Plane, Home, Car, GraduationCap, Heart, ShieldCheck, Laptop, Gift, Wallet,
 }
 

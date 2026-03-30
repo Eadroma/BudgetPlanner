@@ -8,7 +8,7 @@ import { PiggyBank, Plane, Home, Car, GraduationCap, Heart, ShieldCheck, Laptop,
 import { useSavings } from '@/hooks/useSavings'
 import styles from './SavingsWidget.module.css'
 
-const ICON_MAP: Record<string, React.FC<{ size?: number; color?: string }>> = {
+const ICON_MAP: Record<string, React.FC<{ size?: number | string; color?: string }>> = {
   PiggyBank, Plane, Home, Car, GraduationCap, Heart, ShieldCheck, Laptop, Gift, Wallet,
 }
 
