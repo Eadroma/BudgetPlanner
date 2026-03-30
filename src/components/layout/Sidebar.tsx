@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { LayoutDashboard, ArrowRightLeft, Settings, LogOut, Plus } from 'lucide-react'
+import { LayoutDashboard, ArrowRightLeft, Settings, LogOut, Plus, Tag, PiggyBank } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { LanguageSwitch } from './LanguageSwitch'
 import styles from './Sidebar.module.css'
@@ -59,6 +59,20 @@ export function Sidebar({ locale }: SidebarProps) {
         >
           <ArrowRightLeft className={styles.icon} size={20} />
           <span>{t('transactions', { default: 'Transactions' })}</span>
+        </Link>
+        <Link
+          href={`/${locale}/categories`}
+          className={`${styles.navItem} ${isActive('/categories') ? styles.active : ''}`}
+        >
+          <Tag className={styles.icon} size={20} />
+          <span>{t('categories', { default: 'Categories' })}</span>
+        </Link>
+        <Link
+          href={`/${locale}/savings`}
+          className={`${styles.navItem} ${isActive('/savings') ? styles.active : ''}`}
+        >
+          <PiggyBank className={styles.icon} size={20} />
+          <span>{t('savings', { default: 'Épargne' })}</span>
         </Link>
         <Link
           href={`/${locale}/settings`}

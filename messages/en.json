@@ -4,10 +4,12 @@
     "dashboard": "Dashboard",
     "transactions": "Transactions",
     "settings": "Settings",
+    "categories": "Categories",
     "logout": "Sign Out",
     "login": "Sign In",
     "register": "Sign Up",
-    "addTransaction": "Add Transaction"
+    "addTransaction": "Add Transaction",
+    "savings": "Savings"
   },
   "auth": {
     "login": {
@@ -109,7 +111,8 @@
     "newCategoryPlaceholder": "e.g. Travel, Health...",
     "cancel": "Cancel",
     "createCategory": "Create Category",
-    "member": "Member"
+    "member": "Member",
+    "loading": "Loading..."
   },
   "dashboard": {
     "welcome": "Welcome, {email}",
@@ -138,5 +141,21 @@
     "delete": "Remove member",
     "setDefault": "Set as default user",
     "defaultBadge": "Active Default"
+  },
+  "CategoriesPage": {
+    "title": "Category Architecture",
+    "subtitle": "Define the foundational pillars of your financial tracking.",
+    "addTitle": "Create New Category",
+    "editTitle": "Refine Category",
+    "noCategories": "No architectural categories established yet.",
+    "confirmDeleteTitle": "Deconstruct Category",
+    "confirmDeleteMsg": "Are you sure you want to remove this category? All linked entries will be reassigned.",
+    "deleteConfirmBtn": "Confirm Deconstruction",
+    "type": "TYPE",
+    "color": "ACCENT COLOR",
+    "icon": "SYMBOL",
+    "createBtn": "Establish Category",
+    "updateBtn": "Update Pillar",
+    "newCategoryTitle": "New Category"
   }
 }

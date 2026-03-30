@@ -7,6 +7,7 @@ import { TransactionForm } from '@/components/dashboard/TransactionForm'
 import { StatsChart } from '@/components/dashboard/StatsChart'
 import { CashflowTrajectory } from '@/components/dashboard/CashflowTrajectory'
 import { ExpenseDistribution } from '@/components/dashboard/ExpenseDistribution'
+import { SavingsWidget } from '@/components/savings/SavingsWidget'
 import { useTransactions } from '@/hooks/useTransactions'
 import { useMembers } from '@/hooks/useMembers'
 import styles from '@/app/[locale]/dashboard/Dashboard.module.css'
@@ -97,6 +98,7 @@ export const DashboardClient: React.FC = () => {
 
         <div className={styles.sidebar}>
           <div className={styles.sidebarSticky}>
+            <SavingsWidget />
             <StatsChart transactions={transactions} />
             <div id="add" style={{ marginTop: '2rem', scrollMarginTop: '2rem' }}>
               <TransactionForm onSubmit={addTransaction} />

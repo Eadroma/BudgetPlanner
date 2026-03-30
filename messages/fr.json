@@ -4,10 +4,12 @@
     "dashboard": "Tableau de bord",
     "transactions": "Transactions",
     "settings": "Paramètres",
+    "categories": "Catégories",
     "logout": "Déconnexion",
     "login": "Connexion",
     "register": "Inscription",
-    "addTransaction": "Ajouter transaction"
+    "addTransaction": "Ajouter transaction",
+    "savings": "Épargne"
   },
   "auth": {
     "login": {
@@ -109,7 +111,8 @@
     "newCategoryPlaceholder": "ex: Voyage, Santé...",
     "cancel": "Annuler",
     "createCategory": "Créer la catégorie",
-    "member": "Membre"
+    "member": "Membre",
+    "loading": "Chargement..."
   },
   "dashboard": {
     "welcome": "Bienvenue, {email}",
@@ -138,5 +141,21 @@
     "delete": "Supprimer le membre",
     "setDefault": "Définir comme utilisateur par défaut",
     "defaultBadge": "Par défaut"
+  },
+  "CategoriesPage": {
+    "title": "Architecture des Catégories",
+    "subtitle": "Définissez les piliers fondamentaux de votre suivi financier.",
+    "addTitle": "Créer une nouvelle catégorie",
+    "editTitle": "Affiner la catégorie",
+    "noCategories": "Aucune catégorie architecturale établie pour le moment.",
+    "confirmDeleteTitle": "Déconstruire la catégorie",
+    "confirmDeleteMsg": "Êtes-vous sûr de vouloir supprimer cette catégorie ? Toutes les entrées liées seront réaffectées.",
+    "deleteConfirmBtn": "Confirmer la déconstruction",
+    "type": "TYPE",
+    "color": "COULEUR D'ACCENT",
+    "icon": "SYMBOLE",
+    "createBtn": "Établir la catégorie",
+    "updateBtn": "Mettre à jour le pilier",
+    "newCategoryTitle": "Nouvelle Catégorie"
   }
 }

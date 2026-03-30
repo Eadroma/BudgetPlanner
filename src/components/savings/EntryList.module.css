@@ -1,0 +1,144 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-on-surface-variant);
+  font-size: 0.875rem;
+  padding: 2rem 1rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md, 0.75rem);
+  background: var(--color-surface-container);
+  border: 1px solid var(--border-subtle);
+  transition: background 0.15s ease;
+}
+
+.row:hover {
+  background: var(--background-secondary);
+}
+
+.row:hover .actions {
+  opacity: 1;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.deposit {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.withdrawal {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.amount {
+  font-family: var(--font-headline);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.amountDeposit { color: #10b981; }
+.amountWithdrawal { color: #ef4444; }
+
+.memberBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+  background: var(--background-secondary);
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+.memberDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.date {
+  font-size: 0.75rem;
+  color: var(--color-on-surface-variant);
+}
+
+.note {
+  font-size: 0.75rem;
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+}
+
+.actions {
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.actionBtn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+  color: var(--color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.actionBtn:hover {
+  background: var(--background-secondary);
+  color: var(--color-on-surface);
+}
+
+.deleteBtn:hover {
+  background: #fde8e8;
+  border-color: #f5c2c2;
+  color: #c62828;
+}
