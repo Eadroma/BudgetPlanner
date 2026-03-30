@@ -79,7 +79,18 @@
     "comparativeAnalysis": "Comparative analysis: Income vs Expenses",
     "viewAll": "View All",
     "recentActivity": "Recent Activity",
-    "viewLedger": "View Ledger"
+    "viewLedger": "View Ledger",
+    "member": "Member",
+    "all": "All",
+    "monthlyOverview": "Monthly Overview",
+    "searchPlaceholder": "Search transactions...",
+    "category": "Category",
+    "month": "Month",
+    "newest": "Date (Newest)",
+    "oldest": "Date (Oldest)",
+    "noTransactions": "No transactions found.",
+    "total": "TOTAL",
+    "loading": "Loading..."
   },
   "TransactionForm": {
     "title": "Add Transaction",
@@ -89,8 +100,9 @@
     "amount": "AMOUNT",
     "date": "DATE",
     "category": "CATEGORY",
-    "description": "NOTE (OPTIONAL)",
-    "submit": "Confirm Entry →"
+    "description": "Description",
+    "submit": "Confirm Entry →",
+    "member": "Member"
   },
   "dashboard": {
     "welcome": "Welcome, {email}",
@@ -102,5 +114,22 @@
     "error": "Error",
     "back": "Back",
     "or": "or"
+  },
+  "SettingsPage": {
+    "title": "Account Settings",
+    "subtitle": "Manage your household, security, and preferences.",
+    "householdTitle": "Household Members",
+    "householdSubtitle": "Track multiple people on this single account.",
+    "securityTitle": "Security & Encryption",
+    "securitySubtitle": "Protect your data with advanced biometric locks.",
+    "notificationsTitle": "Smart Alerts",
+    "notificationsSubtitle": "Get notified when someone exceeds their budget.",
+    "memberNamePlaceholder": "Member name...",
+    "addBtn": "Add User",
+    "noMembers": "No household members added yet.",
+    "loading": "Loading members...",
+    "delete": "Remove member",
+    "setDefault": "Set as default user",
+    "defaultBadge": "Active Default"
   }
 }

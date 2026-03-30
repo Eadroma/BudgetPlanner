@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react'
 import styles from './Input.module.css'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string
+  label?: string
   error?: string
 }
 
@@ -14,13 +14,15 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, id, className, ...props }, ref) => {
-    const inputId = id ?? label.toLowerCase().replace(/\s+/g, '-')
+    const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-') ?? 'input-' + Math.random().toString(36).substr(2, 9)
 
     return (
       <div className={styles.wrapper}>
-        <label htmlFor={inputId} className={styles.label}>
-          {label}
-        </label>
+        {label && (
+          <label htmlFor={inputId} className={styles.label}>
+            {label}
+          </label>
+        )}
         <input
           ref={ref}
           id={inputId}

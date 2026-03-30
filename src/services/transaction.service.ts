@@ -10,9 +10,8 @@ export const fetchTransactions = async (): Promise<Transaction[]> => {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('transactions')
-    .select('*')
+    .select('*, member:members(*)')
     .order('date', { ascending: false })
-    .order('created_at', { ascending: false })
 
   if (error) throw error
   return data || []
@@ -25,8 +24,12 @@ export const createTransaction = async (transaction: NewTransaction): Promise<Tr
 
   const { data, error } = await supabase
     .from('transactions')
-    .insert([{ ...transaction, user_id: user.id }])
-    .select()
+    .insert([{ 
+      ...transaction, 
+      user_id: user.id,
+      member_id: transaction.member_id || null 
+    }])
+    .select('*, member:members(*)')
     .single()
 
   if (error) throw error

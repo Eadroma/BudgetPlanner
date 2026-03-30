@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { TrendingUp, TrendingDown } from 'lucide-react'
 import type { Transaction } from '@/types/transaction'
 import styles from './SummaryCards.module.css'
@@ -10,6 +10,7 @@ interface SummaryCardsProps {
 
 export const SummaryCards: React.FC<SummaryCardsProps> = ({ transactions }) => {
   const t = useTranslations('Dashboard')
+  const locale = useLocale()
 
   const { income, expense, balance } = transactions.reduce(
     (acc, tx) => {
@@ -27,7 +28,10 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({ transactions }) => {
   )
 
   const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(val)
+    return new Intl.NumberFormat(locale === 'fr' ? 'fr-FR' : 'en-US', { 
+      style: 'currency', 
+      currency: 'EUR' 
+    }).format(val)
   }
 
   return (

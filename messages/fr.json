@@ -79,7 +79,18 @@
     "comparativeAnalysis": "Analyse comparative : Revenus vs Dépenses",
     "viewAll": "Voir tout",
     "recentActivity": "Activité récente",
-    "viewLedger": "Voir le registre"
+    "viewLedger": "Voir le registre",
+    "member": "Membre",
+    "all": "Tous",
+    "monthlyOverview": "Aperçu mensuel",
+    "searchPlaceholder": "Rechercher transactions...",
+    "category": "Catégorie",
+    "month": "Mois",
+    "newest": "Date (Plus récent)",
+    "oldest": "Date (Plus ancien)",
+    "noTransactions": "Aucune transaction trouvée.",
+    "total": "TOTAL",
+    "loading": "Chargement..."
   },
   "TransactionForm": {
     "title": "Ajouter transaction",
@@ -90,7 +101,8 @@
     "date": "DATE",
     "category": "CATÉGORIE",
     "description": "NOTE (OPTIONNEL)",
-    "submit": "Confirmer l'entrée →"
+    "submit": "Confirmer l'entrée →",
+    "member": "Membre"
   },
   "dashboard": {
     "welcome": "Bienvenue, {email}",
@@ -102,5 +114,22 @@
     "error": "Erreur",
     "back": "Retour",
     "or": "ou"
+  },
+  "SettingsPage": {
+    "title": "Paramètres",
+    "subtitle": "Gérez votre foyer, votre sécurité et vos préférences.",
+    "householdTitle": "Membres du Foyer",
+    "householdSubtitle": "Suivez plusieurs personnes sur ce seul et même compte.",
+    "securityTitle": "Sécurité & Chiffrement",
+    "securitySubtitle": "Protégez vos données avec des verrous biométriques avancés.",
+    "notificationsTitle": "Alertes Intelligentes",
+    "notificationsSubtitle": "Soyez notifié quand quelqu'un dépasse son budget.",
+    "memberNamePlaceholder": "Nom du membre...",
+    "addBtn": "Ajouter",
+    "noMembers": "Aucun membre ajouté pour le moment.",
+    "loading": "Chargement...",
+    "delete": "Supprimer le membre",
+    "setDefault": "Définir comme utilisateur par défaut",
+    "defaultBadge": "Par défaut"
   }
 }

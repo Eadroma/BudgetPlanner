@@ -13,6 +13,7 @@ import {
   ArrowUpDown
 } from 'lucide-react'
 import type { Transaction } from '@/types/transaction'
+import { useMembers } from '@/hooks/useMembers'
 import styles from './GroupedTransactionList.module.css'
 
 interface GroupedTransactionListProps {
@@ -54,8 +55,10 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
 
   const [categoryFilter, setCategoryFilter] = useState('all')
   const [monthFilter, setMonthFilter] = useState('all')
+  const [memberFilter, setMemberFilter] = useState('all')
   const [sortOrder, setSortOrder] = useState<'desc'|'asc'>('desc')
   const [searchQuery, setSearchQuery] = useState('')
+  const { members } = useMembers()
 
   const formatCurrency = (val: number, forceSign: boolean = false) => {
     return new Intl.NumberFormat(locale === 'fr' ? 'fr-FR' : 'en-US', {
@@ -98,6 +101,9 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
         }).format(date)
         return monthKey === monthFilter
       })
+    }
+    if (memberFilter !== 'all') {
+      filtered = filtered.filter(tx => tx.member_id === memberFilter)
     }
     if (searchQuery.trim() !== '') {
       const q = searchQuery.toLowerCase()
@@ -147,7 +153,7 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
   }, [transactions, locale, categoryFilter, monthFilter, sortOrder, searchQuery])
 
   if (loading) {
-    return <div className={styles.loading}>Chargement...</div>
+    return <div className={styles.loading}>{t('loading', { default: 'Loading...' })}</div>
   }
 
   return (
@@ -161,7 +167,7 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
               value={categoryFilter} 
               onChange={e => setCategoryFilter(e.target.value)}
             >
-              <option value="all">Category</option>
+              <option value="all">{t('category', { default: 'Category' })}</option>
               {uniqueCategories.map(cat => (
                 <option key={cat} value={cat}>{cat}</option>
               ))}
@@ -175,7 +181,7 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
               value={monthFilter} 
               onChange={e => setMonthFilter(e.target.value)}
             >
-              <option value="all">Month</option>
+              <option value="all">{t('month', { default: 'Month' })}</option>
               {uniqueMonths.map(m => {
                 const titleCase = m.charAt(0).toUpperCase() + m.slice(1)
                 return <option key={m} value={m}>{titleCase}</option>
@@ -190,15 +196,29 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
               value={sortOrder} 
               onChange={e => setSortOrder(e.target.value as 'asc'|'desc')}
             >
-              <option value="desc">Date (Newest)</option>
-              <option value="asc">Date (Oldest)</option>
+              <option value="desc">{t('newest', { default: 'Date (Newest)' })}</option>
+              <option value="asc">{t('oldest', { default: 'Date (Oldest)' })}</option>
+            </select>
+          </div>
+
+          <div className={styles.selectWrapper}>
+            <Filter size={16} className={styles.selectIcon} />
+            <select 
+              className={styles.toolSelect} 
+              value={memberFilter} 
+              onChange={e => setMemberFilter(e.target.value)}
+            >
+              <option value="all">{t('member', { default: 'Member' })}</option>
+              {members.map(m => (
+                <option key={m.id} value={m.id}>{m.name}</option>
+              ))}
             </select>
           </div>
         </div>
         <div className={styles.search}>
           <input 
             type="text" 
-            placeholder="Search transactions..." 
+            placeholder={t('searchPlaceholder', { default: 'Search transactions...' })} 
             className={styles.searchInput}
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
@@ -207,7 +227,7 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
       </div>
 
       {filteredAndGrouped.length === 0 && (
-        <div className={styles.loading}>No transactions found.</div>
+        <div className={styles.loading}>{t('noTransactions', { default: 'No transactions found.' })}</div>
       )}
 
       {filteredAndGrouped.map(([monthString, data]) => (
@@ -215,7 +235,7 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
           <div className={styles.groupHeader}>
             <h2 className={styles.monthTitle}>{monthString}</h2>
             <div className={styles.monthTotal}>
-              <span className={styles.totalLabel}>TOTAL:</span>
+              <span className={styles.totalLabel}>{t('total', { default: 'TOTAL' })}:</span>
               <span className={styles.totalValue}>{formatCurrency(data.total)}</span>
             </div>
           </div>
@@ -231,7 +251,7 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
                     <div className={styles.titleText}>{tx.description || tx.category}</div>
                     <div className={styles.dateText}>
                       {new Date(tx.date).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', { day: 'numeric', month: 'short' })}
-                      {' • '}{tx.type === 'income' ? 'Income' : 'Bank Transfer'}
+                      {' • '}{tx.type === 'income' ? t('income', { default: 'Income' }) : t('expense', { default: 'Expense' })}
                     </div>
                   </div>
                 </div>
@@ -243,6 +263,19 @@ export function GroupedTransactionList({ transactions, loading }: GroupedTransac
                   <div className={`${styles.chip} ${getCategoryTheme(tx.category, tx.type)}`}>
                     {tx.type === 'income' ? 'INCOME' : tx.category}
                   </div>
+                  {tx.member && (
+                    <div 
+                      className={styles.memberBadge}
+                      style={{ 
+                        backgroundColor: `${tx.member.color}15`,
+                        color: tx.member.color,
+                        borderColor: `${tx.member.color}30`
+                      }}
+                    >
+                      <span className={styles.badgeDot} style={{ backgroundColor: tx.member.color }} />
+                      {tx.member.name}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

@@ -13,6 +13,7 @@ import {
   Receipt
 } from 'lucide-react'
 import type { Transaction } from '@/types/transaction'
+import { useMembers } from '@/hooks/useMembers'
 import styles from './TransactionList.module.css'
 
 interface TransactionListProps {
@@ -20,6 +21,8 @@ interface TransactionListProps {
   loading: boolean
   limit?: number
   showViewAll?: boolean
+  memberFilter?: string
+  onMemberFilterChange?: (id: string) => void
 }
 
 const getCategoryIcon = (category: string) => {
@@ -46,10 +49,13 @@ export const TransactionList: React.FC<TransactionListProps> = ({
   transactions, 
   loading,
   limit,
-  showViewAll = false
+  showViewAll = false,
+  memberFilter = 'all',
+  onMemberFilterChange
 }) => {
   const t = useTranslations('Dashboard')
   const locale = useLocale()
+  const { members } = useMembers()
 
   const formatCurrency = (val: number, type: 'income' | 'expense') => {
     const value = type === 'expense' ? -Math.abs(val) : Math.abs(val)
@@ -68,20 +74,40 @@ export const TransactionList: React.FC<TransactionListProps> = ({
     })
   }
 
+  const filtered = React.useMemo(() => {
+    if (memberFilter === 'all') return transactions
+    return transactions.filter(tx => tx.member_id === memberFilter)
+  }, [transactions, memberFilter])
+
   if (loading) {
-    return <div className={styles.loading}>{t('welcome').replace('{email}', '...')}</div>
+    return <div className={styles.loading}>{t('loading', { default: 'Loading...' })}</div>
   }
 
-  if (transactions.length === 0) {
-    return <div className={styles.empty}>No transactions found</div>
-  }
-
-  const displayTransactions = limit ? transactions.slice(0, limit) : transactions
+  const displayTransactions = limit ? filtered.slice(0, limit) : filtered
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h3 className={styles.title}>{t('recentActivity')}</h3>
+        <div className={styles.chipset}>
+          <button 
+            className={`${styles.filterChip} ${memberFilter === 'all' ? styles.filterChipActive : ''}`}
+            onClick={() => onMemberFilterChange?.('all')}
+          >
+             <div className={styles.chipDot} />
+             {t('all', { default: 'All' })}
+          </button>
+          {members.map(m => (
+            <button 
+              key={m.id}
+              className={`${styles.filterChip} ${memberFilter === m.id ? styles.filterChipActive : ''}`}
+              onClick={() => onMemberFilterChange?.(m.id)}
+            >
+               <div className={styles.chipDot} style={{ backgroundColor: m.color }} />
+               {m.name}
+            </button>
+          ))}
+        </div>
         {showViewAll && (
           <Link href={`/${locale}/transactions`} className={styles.viewAllBtn}>
             <span>{t('viewLedger')}</span>

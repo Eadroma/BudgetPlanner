@@ -8,13 +8,13 @@ import { TransactionForm } from '../dashboard/TransactionForm'
 import styles from './TransactionsClient.module.css'
 
 export function TransactionsClient() {
-  const t = useTranslations('nav')
+  const t = useTranslations('Dashboard')
   const { transactions, loading, addTransaction } = useTransactions()
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Monthly Overview</h1>
+        <h1 className={styles.title}>{t('monthlyOverview')}</h1>
       </header>
       
       <div className={styles.grid}>

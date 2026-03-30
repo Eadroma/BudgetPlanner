@@ -220,6 +220,31 @@
   color: #166534;
 }
 
+.chipGeneric {
+  background: var(--background-secondary);
+  color: var(--text-secondary);
+}
+
+.memberBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  margin-top: 4px;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
 .loadMoreBtn {
   width: 100%;
   padding: 1.25rem;

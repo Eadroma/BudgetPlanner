@@ -8,6 +8,48 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.chipset {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filterChip {
+  padding: 0.4rem 0.8rem;
+  border-radius: 100px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filterChip:hover {
+  background: var(--background-secondary);
+  border-color: var(--border-strong);
+}
+
+.filterChipActive {
+  background: var(--background-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.chipDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
 }
 
 .title {

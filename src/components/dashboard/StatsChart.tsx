@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useMemo } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import {
   LineChart,
   Line,
@@ -23,6 +23,7 @@ interface StatsChartProps {
  */
 export function StatsChart({ transactions }: StatsChartProps) {
   const t = useTranslations('Dashboard')
+  const locale = useLocale()
 
   // Transformer les données pour le graphique (Agréger par jour)
   const chartData = useMemo(() => {
@@ -65,7 +66,7 @@ export function StatsChart({ transactions }: StatsChartProps) {
 
   // Format de la date (ex: 12 Mar)
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('fr-FR', {
+    return new Date(dateStr).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
       month: 'short',
       day: 'numeric'
     })

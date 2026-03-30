@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
 import type { NewTransaction, TransactionType } from '@/types/transaction'
+import { useMembers } from '@/hooks/useMembers'
 import styles from './TransactionForm.module.css'
 
 interface TransactionFormProps {
@@ -20,6 +21,20 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) =>
   const [category, setCategory] = useState('')
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [description, setDescription] = useState('')
+  const { members } = useMembers()
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null)
+
+  // Pre-select default member
+  React.useEffect(() => {
+    if (members.length > 0 && !selectedMemberId) {
+      const defaultMember = members.find(m => m.is_default)
+      if (defaultMember) {
+        setSelectedMemberId(defaultMember.id)
+      } else if (members.length > 0) {
+        setSelectedMemberId(members[0].id)
+      }
+    }
+  }, [members, selectedMemberId])
   
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -37,12 +52,14 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) =>
         type,
         category,
         date,
-        description: description || undefined
+        description: description || undefined,
+        member_id: selectedMemberId
       })
       // Reset
       setAmount('')
       setCategory('')
       setDescription('')
+      setSelectedMemberId(null)
     } catch (err: any) {
       setError(err.message)
     } finally {
@@ -111,6 +128,29 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) =>
           <option value="Groceries">Alimentation (Groceries)</option>
         </select>
       </div>
+
+      {members.length > 0 && (
+        <div className={styles.field}>
+          <label className={styles.label}>{t('member', { default: 'User' })}</label>
+          <div className={styles.memberSelector}>
+            {members.map((member) => (
+              <button
+                key={member.id}
+                type="button"
+                className={`${styles.memberPill} ${selectedMemberId === member.id ? styles.memberActive : ''}`}
+                onClick={() => setSelectedMemberId(member.id)}
+                style={{ 
+                  borderColor: selectedMemberId === member.id ? member.color : 'rgba(255,255,255,0.2)',
+                  backgroundColor: selectedMemberId === member.id ? 'white' : 'rgba(255,255,255,0.08)'
+                }}
+              >
+                <span className={styles.colorDot} style={{ backgroundColor: member.color }} />
+                {member.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className={styles.field}>
         <label className={styles.label}>{t('date')}</label>
