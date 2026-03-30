@@ -138,3 +138,18 @@
   border-radius: 50%;
   background: var(--text-muted);
 }
+.confirmContent {
+  padding: 1rem 0;
+}
+
+.confirmContent p {
+  color: var(--color-on-surface-variant);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

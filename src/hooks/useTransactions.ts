@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import type { Transaction, NewTransaction } from '@/types/transaction'
-import { fetchTransactions, createTransaction as createTx } from '@/services/transaction.service'
+import { fetchTransactions, createTransaction as createTx, updateTransaction as updateTx, deleteTransaction as deleteTx } from '@/services/transaction.service'
 
 /**
  * Custom hook pour gérer l'état et la logique UI des transactions.
@@ -32,13 +32,45 @@ export function useTransactions() {
     try {
       setError(null)
       await createTx(tx)
-      await loadTransactions() // Refresh après insertion
+      await loadTransactions() 
     } catch (err: any) {
       console.error('Error creating transaction:', err)
       setError(err.message)
-      throw err // Pour permettre au formulaire de catch
+      throw err 
     }
   }
 
-  return { transactions, loading, error, addTransaction, refresh: loadTransactions }
+  const editTransaction = async (id: string, updates: Partial<NewTransaction>) => {
+    try {
+      setError(null)
+      await updateTx(id, updates)
+      await loadTransactions()
+    } catch (err: any) {
+      console.error('Error updating transaction:', err)
+      setError(err.message)
+      throw err
+    }
+  }
+
+  const removeTransaction = async (id: string) => {
+    try {
+      setError(null)
+      await deleteTx(id)
+      await loadTransactions()
+    } catch (err: any) {
+      console.error('Error deleting transaction:', err)
+      setError(err.message)
+      throw err
+    }
+  }
+
+  return { 
+    transactions, 
+    loading, 
+    error, 
+    addTransaction, 
+    editTransaction,
+    removeTransaction,
+    refresh: loadTransactions 
+  }
 }

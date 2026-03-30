@@ -3,12 +3,15 @@ import { useTranslations } from 'next-intl'
 import { Plus } from 'lucide-react'
 import { Modal } from '../ui/Modal'
 import { Button } from '../ui/Button'
-import type { NewTransaction, TransactionType } from '@/types/transaction'
+import type { Transaction, NewTransaction, TransactionType } from '@/types/transaction'
 import { useMembers } from '@/hooks/useMembers'
 import styles from './TransactionForm.module.css'
 
 interface TransactionFormProps {
   onSubmit: (data: NewTransaction) => Promise<void>
+  initialData?: Transaction
+  title?: string
+  subtitle?: string
 }
 
 const DEFAULT_CATEGORIES = [
@@ -22,19 +25,24 @@ const DEFAULT_CATEGORIES = [
 /**
  * SRP: Composant responsable uniquement du formulaire de création de transaction.
  */
-export const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
+export const TransactionForm: React.FC<TransactionFormProps> = ({ 
+  onSubmit, 
+  initialData,
+  title,
+  subtitle
+}) => {
   const t = useTranslations('TransactionForm')
   
-  const [amount, setAmount] = useState('')
-  const [type, setType] = useState<TransactionType>('expense')
-  const [category, setCategory] = useState('')
+  const [amount, setAmount] = useState(initialData?.amount.toString() || '')
+  const [type, setType] = useState<TransactionType>(initialData?.type || 'expense')
+  const [category, setCategory] = useState(initialData?.category || '')
   const [customCategories, setCustomCategories] = useState<string[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newCategoryName, setNewCategoryName] = useState('')
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0])
-  const [description, setDescription] = useState('')
+  const [date, setDate] = useState(initialData?.date || new Date().toISOString().split('T')[0])
+  const [description, setDescription] = useState(initialData?.description || '')
   const { members } = useMembers()
-  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null)
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(initialData?.member_id || null)
 
   const allCategories = [...DEFAULT_CATEGORIES, ...customCategories]
 

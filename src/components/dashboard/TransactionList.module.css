@@ -81,7 +81,52 @@
 .item {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease;
+}
+
+.item:hover {
+  background-color: var(--surface);
+}
+
+.item:hover .actionsGroup {
+  opacity: 1;
+}
+
+.actionsGroup {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  margin-left: 1rem;
+}
+
+.actionBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editBtn:hover {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-color: #1976d2;
+}
+
+.deleteBtn:hover {
+  background-color: #ffebee;
+  color: #c62828;
+  border-color: #c62828;
 }
 
 .itemLeft {

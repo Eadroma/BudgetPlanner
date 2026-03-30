@@ -3,6 +3,8 @@ import { useTranslations, useLocale } from 'next-intl'
 import Link from 'next/link'
 import { 
   ArrowRight, 
+  Pencil,
+  Trash2,
   Building2, 
   CreditCard, 
   PlaySquare, 
@@ -23,6 +25,8 @@ interface TransactionListProps {
   showViewAll?: boolean
   memberFilter?: string
   onMemberFilterChange?: (id: string) => void
+  onEdit?: (tx: Transaction) => void
+  onDelete?: (tx: Transaction) => void
 }
 
 const getCategoryIcon = (category: string) => {
@@ -51,7 +55,9 @@ export const TransactionList: React.FC<TransactionListProps> = ({
   limit,
   showViewAll = false,
   memberFilter = 'all',
-  onMemberFilterChange
+  onMemberFilterChange,
+  onEdit,
+  onDelete
 }) => {
   const t = useTranslations('Dashboard')
   const locale = useLocale()
@@ -136,6 +142,29 @@ export const TransactionList: React.FC<TransactionListProps> = ({
               >
                 {formatCurrency(tx.amount, tx.type)}
               </div>
+
+              {(onEdit || onDelete) && (
+                <div className={styles.actionsGroup}>
+                  {onEdit && (
+                    <button 
+                      className={`${styles.actionBtn} ${styles.editBtn}`}
+                      onClick={() => onEdit(tx)}
+                      title="Edit"
+                    >
+                      <Pencil size={14} />
+                    </button>
+                  )}
+                  {onDelete && (
+                    <button 
+                      className={`${styles.actionBtn} ${styles.deleteBtn}`}
+                      onClick={() => onDelete(tx)}
+                      title="Delete"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         ))}

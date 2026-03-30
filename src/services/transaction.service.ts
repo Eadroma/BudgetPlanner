@@ -35,3 +35,25 @@ export const createTransaction = async (transaction: NewTransaction): Promise<Tr
   if (error) throw error
   return data
 }
+export const deleteTransaction = async (id: string): Promise<void> => {
+  const supabase = createClient()
+  const { error } = await supabase
+    .from('transactions')
+    .delete()
+    .eq('id', id)
+
+  if (error) throw error
+}
+
+export const updateTransaction = async (id: string, updates: Partial<NewTransaction>): Promise<Transaction> => {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('transactions')
+    .update(updates)
+    .eq('id', id)
+    .select('*, member:members(*)')
+    .single()
+
+  if (error) throw error
+  return data
+}

@@ -20,7 +20,10 @@ export async function signUpWithEmail(registerData: RegisterData) {
   const supabase = createClient()
   const { data, error } = await supabase.auth.signUp({
     email: registerData.email,
-    password: registerData.password
+    password: registerData.password,
+    options: {
+      emailRedirectTo: `${window.location.origin}/auth/callback`
+    }
   })
   return { data, error: mapError(error) }
 }
