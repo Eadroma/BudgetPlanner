@@ -1,0 +1,59 @@
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  border: 1px solid rgba(196, 198, 207, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.colorBox {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legendText {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  letter-spacing: 0.05em;
+}
+
+.chartContainer {
+  width: 100%;
+}

@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "brand": "Echelon Finance",
+    "dashboard": "Dashboard",
+    "transactions": "Transactions",
+    "settings": "Settings",
+    "logout": "Sign Out",
+    "login": "Sign In",
+    "register": "Sign Up",
+    "addTransaction": "Add Transaction"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back to The Ledger",
+      "subtitle": "Enter your credentials to access your architectural dashboard.",
+      "email": "Email address",
+      "email_placeholder": "you@example.com",
+      "password": "Password",
+      "password_placeholder": "••••••••",
+      "submit": "Sign in",
+      "forgot_password": "Forgot password?",
+      "no_account": "Don't have an account?",
+      "sign_up_link": "Sign up",
+      "loading": "Signing in…",
+      "success": "Signed in successfully!",
+      "sidebar_tagline": "Precision in every transaction. Mastery in every ledger.",
+      "sidebar_description": "Experience the architectural approach to wealth management. Built on stability, designed for clarity."
+    },
+    "register": {
+      "title": "Build your financial foundation",
+      "subtitle": "Create your private ledger and secure your future.",
+      "email": "Email address",
+      "email_placeholder": "you@example.com",
+      "password": "Password",
+      "password_placeholder": "••••••••",
+      "confirm_password": "Confirm password",
+      "confirm_password_placeholder": "••••••••",
+      "submit": "Create account",
+      "already_account": "Already have an account?",
+      "login_link": "Sign in",
+      "loading": "Creating account…",
+      "success": "Account created! Check your email.",
+      "sidebar_tagline": "The architecture of wealth, redefined.",
+      "sidebar_description": "Join 50,000+ institutional and private partners.",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    },
+    "errors": {
+      "invalid_credentials": "Invalid email or password.",
+      "email_already_used": "This email is already in use.",
+      "passwords_mismatch": "Passwords do not match.",
+      "password_too_short": "Password must be at least 8 characters.",
+      "email_required": "Email is required.",
+      "password_required": "Password is required.",
+      "generic": "An error occurred. Please try again."
+    }
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "summary": "Summary of your recent finances.",
+    "totalBalance": "Total Balance",
+    "totalIncome": "Income",
+    "totalExpense": "Expenses",
+    "recentTransactions": "Recent Transactions",
+    "welcome": "Welcome {email}",
+    "subtitle": "Here is your financial status.",
+    "performanceTitle": "Financial Performance",
+    "income": "Income",
+    "expense": "Expenses",
+    "heroNetBalance": "TOTAL NET BALANCE",
+    "heroStatus": "Status: Excellent",
+    "heroUpdated": "Last updated: Today",
+    "monthlyIncome": "MONTHLY INCOME",
+    "monthlyExpenses": "MONTHLY EXPENSES",
+    "expenseDistribution": "Expense Distribution",
+    "currentMonthAnalysis": "Current month analysis",
+    "totalSpent": "TOTAL SPENT",
+    "cashflowTrajectory": "Cashflow Trajectory",
+    "comparativeAnalysis": "Comparative analysis: Income vs Expenses",
+    "viewAll": "View All",
+    "recentActivity": "Recent Activity",
+    "viewLedger": "View Ledger"
+  },
+  "TransactionForm": {
+    "title": "Add Transaction",
+    "subtitle": "Record your financial movements with precision.",
+    "expense": "EXPENSE",
+    "income": "INCOME",
+    "amount": "AMOUNT",
+    "date": "DATE",
+    "category": "CATEGORY",
+    "description": "NOTE (OPTIONAL)",
+    "submit": "Confirm Entry →"
+  },
+  "dashboard": {
+    "welcome": "Welcome, {email}",
+    "subtitle": "Your financial workspace is ready.",
+    "logout_button": "Sign out"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Error",
+    "back": "Back",
+    "or": "or"
+  }
+}

@@ -1,0 +1,134 @@
+.formWrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin: 0 0 0.625rem;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-on-surface-variant);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.passwordGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.forgotLink {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  text-align: right;
+  display: block;
+  transition: opacity 0.15s;
+}
+
+.forgotLink:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+.globalError {
+  padding: 0.75rem 1rem;
+  background: #fff1f0;
+  border-radius: var(--radius-default);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: slideIn 0.2s ease;
+}
+
+.globalError::before {
+  content: '⚠';
+}
+
+.switchLink {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-on-surface-variant);
+}
+
+.link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+
+.link:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+.termsText {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-on-surface-variant);
+  margin-top: -0.25rem;
+}
+
+/* Success state */
+.successCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: var(--color-surface-container-low);
+  border-radius: var(--radius-xl);
+}
+
+.successIcon {
+  font-size: 2.5rem;
+}
+
+.successTitle {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+.successText {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-on-surface-variant);
+  margin: 0;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

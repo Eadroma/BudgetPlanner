@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "brand": "Echelon Finance",
+    "dashboard": "Tableau de bord",
+    "transactions": "Transactions",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "register": "Inscription",
+    "addTransaction": "Ajouter transaction"
+  },
+  "auth": {
+    "login": {
+      "title": "Bon retour sur The Ledger",
+      "subtitle": "Entrez vos identifiants pour accéder à votre tableau de bord.",
+      "email": "Adresse email",
+      "email_placeholder": "vous@exemple.com",
+      "password": "Mot de passe",
+      "password_placeholder": "••••••••",
+      "submit": "Se connecter",
+      "forgot_password": "Mot de passe oublié ?",
+      "no_account": "Pas encore de compte ?",
+      "sign_up_link": "S'inscrire",
+      "loading": "Connexion en cours…",
+      "success": "Connexion réussie !",
+      "sidebar_tagline": "Précision dans chaque transaction. Maîtrise dans chaque grand livre.",
+      "sidebar_description": "Une approche architecturale de la gestion patrimoniale. Bâtie sur la stabilité, conçue pour la clarté."
+    },
+    "register": {
+      "title": "Construisez votre fondation financière",
+      "subtitle": "Créez votre grand livre privé et sécurisez votre avenir.",
+      "email": "Adresse email",
+      "email_placeholder": "vous@exemple.com",
+      "password": "Mot de passe",
+      "password_placeholder": "••••••••",
+      "confirm_password": "Confirmer le mot de passe",
+      "confirm_password_placeholder": "••••••••",
+      "submit": "Créer mon compte",
+      "already_account": "Vous avez déjà un compte ?",
+      "login_link": "Se connecter",
+      "loading": "Création en cours…",
+      "success": "Compte créé ! Vérifiez votre email.",
+      "sidebar_tagline": "L'architecture de la richesse, redéfinie.",
+      "sidebar_description": "Rejoignez 50 000+ partenaires institutionnels et privés.",
+      "terms": "Conditions d'utilisation",
+      "privacy": "Politique de confidentialité"
+    },
+    "errors": {
+      "invalid_credentials": "Email ou mot de passe incorrect.",
+      "email_already_used": "Cet email est déjà utilisé.",
+      "passwords_mismatch": "Les mots de passe ne correspondent pas.",
+      "password_too_short": "Le mot de passe doit contenir au moins 8 caractères.",
+      "email_required": "L'email est requis.",
+      "password_required": "Le mot de passe est requis.",
+      "generic": "Une erreur est survenue. Réessayez."
+    }
+  },
+  "Dashboard": {
+    "title": "Tableau de bord",
+    "summary": "Résumé de vos finances récentes.",
+    "totalBalance": "Solde total",
+    "totalIncome": "Revenus",
+    "totalExpense": "Dépenses",
+    "recentTransactions": "Transactions récentes",
+    "welcome": "Bienvenue {email}",
+    "subtitle": "Voici votre situation patrimoniale.",
+    "performanceTitle": "Performance financière",
+    "income": "Revenus",
+    "expense": "Dépenses",
+    "heroNetBalance": "SOLDE NET TOTAL",
+    "heroStatus": "Statut : Excellent",
+    "heroUpdated": "Dernière mise à jour : Aujourd'hui",
+    "monthlyIncome": "REVENUS MENSUELS",
+    "monthlyExpenses": "DÉPENSES MENSUELLES",
+    "expenseDistribution": "Répartition des dépenses",
+    "currentMonthAnalysis": "Analyse du mois en cours",
+    "totalSpent": "TOTAL DÉPENSÉ",
+    "cashflowTrajectory": "Trajectoire de trésorerie",
+    "comparativeAnalysis": "Analyse comparative : Revenus vs Dépenses",
+    "viewAll": "Voir tout",
+    "recentActivity": "Activité récente",
+    "viewLedger": "Voir le registre"
+  },
+  "TransactionForm": {
+    "title": "Ajouter transaction",
+    "subtitle": "Enregistrez vos mouvements financiers avec précision.",
+    "expense": "DÉPENSE",
+    "income": "REVENU",
+    "amount": "MONTANT",
+    "date": "DATE",
+    "category": "CATÉGORIE",
+    "description": "NOTE (OPTIONNEL)",
+    "submit": "Confirmer l'entrée →"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue, {email}",
+    "subtitle": "Votre espace financier est prêt.",
+    "logout_button": "Se déconnecter"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "error": "Erreur",
+    "back": "Retour",
+    "or": "ou"
+  }
+}

@@ -1,0 +1,136 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    flex-direction: row;
+  }
+}
+
+/* Hero Card */
+.heroCard {
+  flex: 2;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  color: var(--color-on-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 12px 24px rgba(0, 32, 69, 0.15);
+}
+
+.heroHeader {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.heroValue {
+  font-family: var(--font-headline);
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+}
+
+.heroFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  opacity: 0.7;
+  font-size: 0.75rem;
+}
+
+.heroStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 200px;
+}
+
+.progressBar {
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--color-secondary-container);
+  border-radius: 2px;
+}
+
+/* Side Cards */
+.sideCards {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.statCard {
+  background-color: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.iconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconWrapIncome {
+  background-color: var(--color-secondary-container);
+}
+
+.iconIncome {
+  color: var(--color-on-secondary-container);
+}
+
+.iconWrapExpense {
+  background-color: var(--color-error-container);
+}
+
+.iconExpense {
+  color: var(--color-on-error-container);
+}
+
+.statLabel {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  margin-bottom: 0.25rem;
+}
+
+.statValue {
+  font-family: var(--font-headline);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.positive {
+  color: var(--color-secondary);
+}
+
+.negative {
+  color: var(--color-error);
+}

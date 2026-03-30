@@ -1,0 +1,42 @@
+.container {
+  padding: 1rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.leftColumn {
+  position: sticky;
+  top: 2rem;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .leftColumn {
+    position: static;
+  }
+}

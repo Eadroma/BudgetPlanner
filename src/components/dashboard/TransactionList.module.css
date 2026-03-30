@@ -1,0 +1,138 @@
+.container {
+  background-color: transparent;
+  padding: 1.5rem 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: var(--font-headline);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+}
+
+.viewAllBtn {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.viewAllBtn:hover {
+  opacity: 0.8;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.itemLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.iconBox {
+  width: 48px;
+  height: 48px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-on-surface-variant);
+}
+
+.textStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.descText {
+  font-family: var(--font-headline);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.dateText {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.itemRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.categoryChip {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.chipDanger {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.chipNeutral {
+  background-color: #e0e0e0;
+  color: #424242;
+}
+
+.chipIncome {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.chipGeneric {
+  background-color: var(--color-primary-fixed-dim);
+  color: var(--color-on-primary-fixed);
+}
+
+.amount {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.positive {
+  color: #2e7d32;
+}
+
+.negative {
+  color: var(--foreground);
+}
+
+.loading, .empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--foreground-muted);
+}
