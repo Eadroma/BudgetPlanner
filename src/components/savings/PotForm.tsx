@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { PiggyBank, Plane, Home, Car, GraduationCap, Heart, ShieldCheck, Laptop, Gift, Wallet } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import type { SavingsPot, NewSavingsPot } from '@/types/savings'
@@ -31,6 +32,7 @@ interface PotFormProps {
 }
 
 export function PotForm({ initialData, onSubmit, onCancel }: PotFormProps) {
+  const t = useTranslations('SavingsPage')
   const [name, setName] = useState(initialData?.name || '')
   const [targetAmount, setTargetAmount] = useState(initialData?.target_amount?.toString() || '')
   const [color, setColor] = useState(initialData?.color || '#3b82f6')
@@ -62,13 +64,13 @@ export function PotForm({ initialData, onSubmit, onCancel }: PotFormProps) {
       {error && <div className={styles.error}>{error}</div>}
 
       <div className={styles.field}>
-        <label className={styles.label}>NOM DU COFFRE</label>
+        <label className={styles.label}>{t('potNameLabel')}</label>
         <input
           type="text"
           className={styles.input}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="ex: Vacances, Fonds d'urgence..."
+          placeholder={t('potNamePlaceholder')}
           required
           autoFocus
           disabled={isSubmitting}
@@ -76,7 +78,7 @@ export function PotForm({ initialData, onSubmit, onCancel }: PotFormProps) {
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label}>MONTANT CIBLE (optionnel)</label>
+        <label className={styles.label}>{t('targetAmountLabel')}</label>
         <div className={styles.amountWrapper}>
           <span className={styles.amountSymbol}>€</span>
           <input
@@ -86,14 +88,14 @@ export function PotForm({ initialData, onSubmit, onCancel }: PotFormProps) {
             onChange={(e) => setTargetAmount(e.target.value)}
             step="0.01"
             min="0"
-            placeholder="Laisser vide pour aucun objectif"
+            placeholder={t('targetAmountPlaceholder')}
             disabled={isSubmitting}
           />
         </div>
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label}>COULEUR</label>
+        <label className={styles.label}>{t('colorLabel')}</label>
         <div className={styles.colorPicker}>
           {PRESET_COLORS.map(c => (
             <button
@@ -108,7 +110,7 @@ export function PotForm({ initialData, onSubmit, onCancel }: PotFormProps) {
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label}>SYMBOLE</label>
+        <label className={styles.label}>{t('iconLabel')}</label>
         <div className={styles.iconPicker}>
           {ICONS.map(({ id, Icon }) => (
             <button
@@ -126,10 +128,10 @@ export function PotForm({ initialData, onSubmit, onCancel }: PotFormProps) {
 
       <div className={styles.actions}>
         <Button variant="ghost" type="button" onClick={onCancel} disabled={isSubmitting}>
-          Annuler
+          {t('cancel')}
         </Button>
         <Button variant="primary" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? '...' : initialData ? 'Mettre à jour' : 'Créer le coffre'}
+          {isSubmitting ? '...' : initialData ? t('updateVaultBtn') : t('createVaultBtn')}
         </Button>
       </div>
     </form>

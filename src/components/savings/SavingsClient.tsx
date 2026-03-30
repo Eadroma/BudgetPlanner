@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Plus, PiggyBank } from 'lucide-react'
 import { useSavings, useSavingsEntries } from '@/hooks/useSavings'
 import { Modal } from '@/components/ui/Modal'
@@ -13,20 +14,17 @@ import type { SavingsPot, SavingsEntry, NewSavingsPot, NewSavingsEntry } from '@
 import styles from './SavingsClient.module.css'
 
 export function SavingsClient() {
+  const t = useTranslations('SavingsPage')
   const { pots, loading, error, summary, addPot, editPot, removePot } = useSavings()
   const [activePotId, setActivePotId] = useState<string | null>(null)
 
-  // Pot modals
   const [isCreatePotOpen, setIsCreatePotOpen] = useState(false)
   const [editingPot, setEditingPot] = useState<SavingsPot | null>(null)
   const [deletingPot, setDeletingPot] = useState<SavingsPot | null>(null)
-
-  // Entry modals
   const [editingEntry, setEditingEntry] = useState<SavingsEntry | null>(null)
   const [deletingEntry, setDeletingEntry] = useState<SavingsEntry | null>(null)
 
   const activePot = pots.find(p => p.id === activePotId) ?? null
-
   const { entries, loading: entriesLoading, addEntry, editEntry, removeEntry } = useSavingsEntries(activePotId || '')
 
   const formatAmount = (amount: number) =>
@@ -68,44 +66,41 @@ export function SavingsClient() {
 
   return (
     <div className={styles.wrapper}>
-      {/* Page Header */}
       <div className={styles.pageHeader}>
         <div>
-          <h1 className={styles.title}>Coffres d&apos;Épargne</h1>
-          <p className={styles.subtitle}>Constituez vos réserves financières, un coffre à la fois.</p>
+          <h1 className={styles.title}>{t('title')}</h1>
+          <p className={styles.subtitle}>{t('subtitle')}</p>
         </div>
         <button className={styles.newPotBtn} onClick={() => setIsCreatePotOpen(true)}>
           <Plus size={18} />
-          Nouveau coffre
+          {t('newVaultBtn')}
         </button>
       </div>
 
       {error && <div className={styles.error}>{error}</div>}
 
-      {/* Summary bar */}
       {pots.length > 0 && (
         <div className={styles.summaryBar}>
           <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>TOTAL ÉPARGNÉ</span>
+            <span className={styles.summaryLabel}>{t('totalSaved')}</span>
             <span className={styles.summaryValue}>{formatAmount(summary.totalSaved)}</span>
           </div>
           <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>COFFRES</span>
+            <span className={styles.summaryLabel}>{t('vaultsCount')}</span>
             <span className={styles.summaryValue}>{summary.potCount}</span>
           </div>
         </div>
       )}
 
-      {/* Pots grid */}
       {loading ? (
-        <div className={styles.loadingState}>Chargement...</div>
+        <div className={styles.loadingState}>{t('loading')}</div>
       ) : pots.length === 0 ? (
         <div className={styles.emptyState}>
           <PiggyBank size={48} className={styles.emptyIcon} />
-          <p className={styles.emptyText}>Aucun coffre d&apos;épargne pour l&apos;instant.</p>
+          <p className={styles.emptyText}>{t('noVaults')}</p>
           <button className={styles.newPotBtn} onClick={() => setIsCreatePotOpen(true)}>
             <Plus size={18} />
-            Créer mon premier coffre
+            {t('createFirst')}
           </button>
         </div>
       ) : (
@@ -118,17 +113,15 @@ export function SavingsClient() {
         />
       )}
 
-      {/* Detail panel when a pot is selected */}
       {activePot && (
         <div className={styles.detailPanel}>
           <div className={styles.detailHeader}>
             <h2 className={styles.detailTitle}>{activePot.name}</h2>
             <span className={styles.detailBalance}>{formatAmount(activePot.current_amount ?? 0)}</span>
           </div>
-
           <div className={styles.detailContent}>
             <div className={styles.detailMain}>
-              <h3 className={styles.sectionTitle}>Entrées</h3>
+              <h3 className={styles.sectionTitle}>{t('entries')}</h3>
               <EntryList
                 entries={entries}
                 loading={entriesLoading}
@@ -136,44 +129,36 @@ export function SavingsClient() {
                 onDelete={setDeletingEntry}
               />
             </div>
-
             <div className={styles.detailSidebar}>
-              <EntryForm
-                potId={activePot.id}
-                onSubmit={handleAddEntry}
-              />
+              <EntryForm potId={activePot.id} onSubmit={handleAddEntry} />
             </div>
           </div>
         </div>
       )}
 
-      {/* Create Pot Modal */}
-      <Modal isOpen={isCreatePotOpen} onClose={() => setIsCreatePotOpen(false)} title="Nouveau Coffre">
+      <Modal isOpen={isCreatePotOpen} onClose={() => setIsCreatePotOpen(false)} title={t('createVaultTitle')}>
         <PotForm onSubmit={handleCreatePot} onCancel={() => setIsCreatePotOpen(false)} />
       </Modal>
 
-      {/* Edit Pot Modal */}
-      <Modal isOpen={!!editingPot} onClose={() => setEditingPot(null)} title="Modifier le Coffre">
+      <Modal isOpen={!!editingPot} onClose={() => setEditingPot(null)} title={t('editVaultTitle')}>
         {editingPot && (
           <PotForm initialData={editingPot} onSubmit={handleEditPot} onCancel={() => setEditingPot(null)} />
         )}
       </Modal>
 
-      {/* Delete Pot Modal */}
-      <Modal isOpen={!!deletingPot} onClose={() => setDeletingPot(null)} title="Supprimer le coffre">
+      <Modal isOpen={!!deletingPot} onClose={() => setDeletingPot(null)} title={t('deleteVaultTitle')}>
         <div className={styles.confirmContent}>
-          <p>Êtes-vous sûr de vouloir supprimer <strong>{deletingPot?.name}</strong> ? Toutes les entrées seront supprimées définitivement.</p>
+          <p>{t.rich('deleteVaultMsg', { name: deletingPot?.name ?? '', b: (chunks) => <strong>{chunks}</strong> })}</p>
           <div className={styles.confirmActions}>
-            <Button variant="ghost" onClick={() => setDeletingPot(null)}>Annuler</Button>
+            <Button variant="ghost" onClick={() => setDeletingPot(null)}>{t('cancel')}</Button>
             <Button variant="primary" onClick={handleDeletePot} style={{ backgroundColor: '#c62828', borderColor: '#c62828' }}>
-              Supprimer définitivement
+              {t('deleteVaultConfirm')}
             </Button>
           </div>
         </div>
       </Modal>
 
-      {/* Edit Entry Modal */}
-      <Modal isOpen={!!editingEntry} onClose={() => setEditingEntry(null)} title="Modifier l'entrée">
+      <Modal isOpen={!!editingEntry} onClose={() => setEditingEntry(null)} title={t('editEntryTitle')}>
         {editingEntry && activePot && (
           <EntryForm
             potId={activePot.id}
@@ -184,14 +169,13 @@ export function SavingsClient() {
         )}
       </Modal>
 
-      {/* Delete Entry Modal */}
-      <Modal isOpen={!!deletingEntry} onClose={() => setDeletingEntry(null)} title="Supprimer l'entrée">
+      <Modal isOpen={!!deletingEntry} onClose={() => setDeletingEntry(null)} title={t('deleteEntryTitle')}>
         <div className={styles.confirmContent}>
-          <p>Supprimer cette entrée ? Cette action est irréversible.</p>
+          <p>{t('deleteEntryMsg')}</p>
           <div className={styles.confirmActions}>
-            <Button variant="ghost" onClick={() => setDeletingEntry(null)}>Annuler</Button>
+            <Button variant="ghost" onClick={() => setDeletingEntry(null)}>{t('cancel')}</Button>
             <Button variant="primary" onClick={handleDeleteEntry} style={{ backgroundColor: '#c62828', borderColor: '#c62828' }}>
-              Supprimer l&apos;entrée
+              {t('deleteEntryConfirm')}
             </Button>
           </div>
         </div>

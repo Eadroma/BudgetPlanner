@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { useTranslations } from 'next-intl'
 import { Pencil, Trash2, TrendingUp, TrendingDown } from 'lucide-react'
 import type { SavingsEntry } from '@/types/savings'
 import styles from './EntryList.module.css'
@@ -13,6 +14,8 @@ interface EntryListProps {
 }
 
 export function EntryList({ entries, loading, onEdit, onDelete }: EntryListProps) {
+  const t = useTranslations('SavingsPage')
+
   const formatAmount = (amount: number) =>
     new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount)
 
@@ -20,11 +23,11 @@ export function EntryList({ entries, loading, onEdit, onDelete }: EntryListProps
     new Date(dateStr).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
 
   if (loading) {
-    return <div className={styles.empty}>Chargement...</div>
+    return <div className={styles.empty}>{t('loading')}</div>
   }
 
   if (entries.length === 0) {
-    return <div className={styles.empty}>Aucune entrée pour ce coffre.</div>
+    return <div className={styles.empty}>{t('noEntries')}</div>
   }
 
   return (
@@ -60,10 +63,10 @@ export function EntryList({ entries, loading, onEdit, onDelete }: EntryListProps
           </div>
 
           <div className={styles.actions}>
-            <button className={styles.actionBtn} onClick={() => onEdit(entry)} title="Modifier">
+            <button className={styles.actionBtn} onClick={() => onEdit(entry)} title={t('edit')}>
               <Pencil size={13} />
             </button>
-            <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={() => onDelete(entry)} title="Supprimer">
+            <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={() => onDelete(entry)} title={t('delete')}>
               <Trash2 size={13} />
             </button>
           </div>

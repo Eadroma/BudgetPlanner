@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import { useMembers } from '@/hooks/useMembers'
 import type { SavingsEntry, NewSavingsEntry, SavingsEntryType } from '@/types/savings'
@@ -14,6 +15,7 @@ interface EntryFormProps {
 }
 
 export function EntryForm({ potId, initialData, onSubmit, onCancel }: EntryFormProps) {
+  const t = useTranslations('SavingsPage')
   const [type, setType] = useState<SavingsEntryType>(initialData?.type || 'deposit')
   const [amount, setAmount] = useState(initialData?.amount.toString() || '')
   const [date, setDate] = useState(initialData?.date || new Date().toISOString().split('T')[0])
@@ -65,19 +67,19 @@ export function EntryForm({ potId, initialData, onSubmit, onCancel }: EntryFormP
           className={`${styles.typeButton} ${type === 'deposit' ? styles.typeDeposit : styles.typeInactive}`}
           onClick={() => setType('deposit')}
         >
-          DÉPÔT
+          {t('deposit')}
         </button>
         <button
           type="button"
           className={`${styles.typeButton} ${type === 'withdrawal' ? styles.typeWithdrawal : styles.typeInactive}`}
           onClick={() => setType('withdrawal')}
         >
-          RETRAIT
+          {t('withdrawal')}
         </button>
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label}>MONTANT</label>
+        <label className={styles.label}>{t('amountLabel')}</label>
         <div className={styles.amountWrapper}>
           <span className={styles.amountSymbol}>€</span>
           <input
@@ -95,7 +97,7 @@ export function EntryForm({ potId, initialData, onSubmit, onCancel }: EntryFormP
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label}>DATE</label>
+        <label className={styles.label}>{t('dateLabel')}</label>
         <input
           type="date"
           className={styles.input}
@@ -108,7 +110,7 @@ export function EntryForm({ potId, initialData, onSubmit, onCancel }: EntryFormP
 
       {members.length > 0 && (
         <div className={styles.field}>
-          <label className={styles.label}>MEMBRE</label>
+          <label className={styles.label}>{t('memberLabel')}</label>
           <div className={styles.memberSelector}>
             {members.map(member => (
               <button
@@ -131,13 +133,13 @@ export function EntryForm({ potId, initialData, onSubmit, onCancel }: EntryFormP
       )}
 
       <div className={styles.field}>
-        <label className={styles.label}>NOTE</label>
+        <label className={styles.label}>{t('noteLabel')}</label>
         <input
           type="text"
           className={styles.input}
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          placeholder="Note facultative..."
+          placeholder={t('notePlaceholder')}
           disabled={isSubmitting}
         />
       </div>
@@ -145,11 +147,11 @@ export function EntryForm({ potId, initialData, onSubmit, onCancel }: EntryFormP
       <div className={styles.submitRow}>
         {onCancel && (
           <Button variant="ghost" type="button" onClick={onCancel} disabled={isSubmitting}>
-            Annuler
+            {t('cancel')}
           </Button>
         )}
         <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-          {isSubmitting ? '...' : 'Confirmer →'}
+          {isSubmitting ? '...' : t('confirmEntry')}
         </button>
       </div>
     </form>

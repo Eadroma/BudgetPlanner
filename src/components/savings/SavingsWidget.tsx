@@ -3,7 +3,8 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { PiggyBank, Plane, Home, Car, GraduationCap, Heart, ShieldCheck, Laptop, Gift, Wallet, ArrowRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { PiggyBank, Plane, Home, Car, GraduationCap, Heart, ShieldCheck, Laptop, Gift, Wallet } from 'lucide-react'
 import { useSavings } from '@/hooks/useSavings'
 import styles from './SavingsWidget.module.css'
 
@@ -12,6 +13,7 @@ const ICON_MAP: Record<string, React.FC<{ size?: number; color?: string }>> = {
 }
 
 export function SavingsWidget() {
+  const t = useTranslations('SavingsWidget')
   const pathname = usePathname()
   const locale = pathname.split('/')[1] || 'fr'
   const { summary, loading } = useSavings()
@@ -24,26 +26,26 @@ export function SavingsWidget() {
       <div className={styles.header}>
         <div className={styles.titleRow}>
           <PiggyBank size={18} className={styles.titleIcon} />
-          <span className={styles.title}>Épargne</span>
+          <span className={styles.title}>{t('title')}</span>
         </div>
         <Link href={`/${locale}/savings`} className={styles.viewAll}>
-          Voir tout <ArrowRight size={14} />
+          {t('viewAll')}
         </Link>
       </div>
 
       {loading ? (
-        <div className={styles.loading}>Chargement...</div>
+        <div className={styles.loading}>{t('loading')}</div>
       ) : (
         <>
           <div className={styles.totalSection}>
-            <span className={styles.totalLabel}>TOTAL ÉPARGNÉ</span>
+            <span className={styles.totalLabel}>{t('totalSaved')}</span>
             <span className={styles.totalAmount}>{formatAmount(summary.totalSaved)}</span>
           </div>
 
           {summary.potCount === 0 ? (
             <div className={styles.empty}>
               <Link href={`/${locale}/savings`} className={styles.createLink}>
-                Créer votre premier coffre →
+                {t('createFirst')}
               </Link>
             </div>
           ) : (

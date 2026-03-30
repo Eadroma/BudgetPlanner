@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { useTranslations } from 'next-intl'
 import { Pencil, Trash2, PiggyBank, Plane, Home, Car, GraduationCap, Heart, ShieldCheck, Laptop, Gift, Wallet } from 'lucide-react'
 import type { SavingsPot } from '@/types/savings'
 import styles from './PotCard.module.css'
@@ -18,6 +19,7 @@ interface PotCardProps {
 }
 
 export function PotCard({ pot, isActive, onClick, onEdit, onDelete }: PotCardProps) {
+  const t = useTranslations('SavingsPage')
   const Icon = ICON_MAP[pot.icon] || PiggyBank
   const progress = pot.target_amount && pot.target_amount > 0
     ? Math.min(100, ((pot.current_amount ?? 0) / pot.target_amount) * 100)
@@ -39,14 +41,14 @@ export function PotCard({ pot, isActive, onClick, onEdit, onDelete }: PotCardPro
           <button
             className={styles.actionBtn}
             onClick={(e) => { e.stopPropagation(); onEdit() }}
-            title="Modifier"
+            title={t('edit')}
           >
             <Pencil size={14} />
           </button>
           <button
             className={`${styles.actionBtn} ${styles.deleteBtn}`}
             onClick={(e) => { e.stopPropagation(); onDelete() }}
-            title="Supprimer"
+            title={t('delete')}
           >
             <Trash2 size={14} />
           </button>
@@ -62,7 +64,7 @@ export function PotCard({ pot, isActive, onClick, onEdit, onDelete }: PotCardPro
       {pot.target_amount !== null && (
         <div className={styles.targetRow}>
           <span className={styles.targetLabel}>
-            sur {formatAmount(pot.target_amount)}
+            {t('of')} {formatAmount(pot.target_amount)}
           </span>
           <span className={styles.percentage}>{Math.round(progress ?? 0)}%</span>
         </div>
@@ -78,7 +80,7 @@ export function PotCard({ pot, isActive, onClick, onEdit, onDelete }: PotCardPro
       )}
 
       <div className={styles.entriesCount}>
-        {pot.entry_count ?? 0} entrée{(pot.entry_count ?? 0) !== 1 ? 's' : ''}
+        {t('entriesCount', { count: pot.entry_count ?? 0 })}
       </div>
     </div>
   )
