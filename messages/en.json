@@ -104,6 +104,11 @@
     "submit": "Confirm Entry →",
     "selectCategory": "Select category...",
     "descriptionPlaceholder": "Write a short detail...",
+    "newCategoryTitle": "New Category",
+    "newCategoryLabel": "Category Name",
+    "newCategoryPlaceholder": "e.g. Travel, Health...",
+    "cancel": "Cancel",
+    "createCategory": "Create Category",
     "member": "Member"
   },
   "dashboard": {

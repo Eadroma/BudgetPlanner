@@ -219,27 +219,27 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) =>
       <Modal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        title="New Category"
+        title={t('newCategoryTitle')}
       >
         <form onSubmit={handleAddCategory} className={styles.modalForm}>
           <div className={styles.modalField}>
-            <label className={styles.modalLabel}>Category Name</label>
+            <label className={styles.modalLabel}>{t('newCategoryLabel')}</label>
             <input
               autoFocus
               type="text"
               className={styles.modalInput}
               value={newCategoryName}
               onChange={(e) => setNewCategoryName(e.target.value)}
-              placeholder="e.g. Travel, Health..."
+              placeholder={t('newCategoryPlaceholder')}
               required
             />
           </div>
           <div className={styles.modalActions}>
-            <Button variant="outline" type="button" onClick={() => setIsModalOpen(false)}>
-              Cancel
+            <Button variant="ghost" type="button" onClick={() => setIsModalOpen(false)}>
+              {t('cancel')}
             </Button>
             <Button variant="primary" type="submit">
-              Create Category
+              {t('createCategory')}
             </Button>
           </div>
         </form>

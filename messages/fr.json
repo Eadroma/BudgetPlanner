@@ -104,6 +104,11 @@
     "submit": "Confirmer l'inscription →",
     "selectCategory": "Sélect. catégorie...",
     "descriptionPlaceholder": "Détails (facultatif)...",
+    "newCategoryTitle": "Nouvelle Catégorie",
+    "newCategoryLabel": "Nom de la catégorie",
+    "newCategoryPlaceholder": "ex: Voyage, Santé...",
+    "cancel": "Annuler",
+    "createCategory": "Créer la catégorie",
     "member": "Membre"
   },
   "dashboard": {
