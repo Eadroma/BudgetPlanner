@@ -5,8 +5,15 @@ import { createBrowserClient } from '@supabase/ssr'
  * Les clés sont publiques (anon key) : sûres à exposer côté client.
  */
 export function createClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('Supabase project URL and Key are required! Check your Environment Variables.')
+  }
+
   return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    supabaseUrl!,
+    supabaseKey!
   )
 }
