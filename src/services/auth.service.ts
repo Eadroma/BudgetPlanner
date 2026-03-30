@@ -34,11 +34,18 @@ export async function signOut() {
   return { error: mapError(error) }
 }
 
-export async function resetPassword(email: string) {
+export async function resetPassword(email: string, locale: string) {
   const supabase = createClient()
+  const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`
+    redirectTo: `${origin}/${locale}/auth/callback?next=/${locale}/reset-password`,
   })
+  return { error: mapError(error) }
+}
+
+export async function updatePassword(password: string) {
+  const supabase = createClient()
+  const { error } = await supabase.auth.updateUser({ password })
   return { error: mapError(error) }
 }
 

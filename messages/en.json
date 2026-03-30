@@ -55,6 +55,22 @@
       "email_required": "Email is required.",
       "password_required": "Password is required.",
       "generic": "An error occurred. Please try again."
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "subtitle": "Enter your email and we'll send you a reset link.",
+      "emailLabel": "Email address",
+      "submitBtn": "Send reset link",
+      "successMsg": "Check your inbox — a reset link has been sent.",
+      "backToLogin": "Back to login"
+    },
+    "resetPassword": {
+      "title": "Choose a new password",
+      "subtitle": "Your new password must be at least 8 characters.",
+      "newPasswordLabel": "New password",
+      "confirmPasswordLabel": "Confirm new password",
+      "submitBtn": "Update password",
+      "successMsg": "Password updated! Redirecting…"
     }
   },
   "Dashboard": {

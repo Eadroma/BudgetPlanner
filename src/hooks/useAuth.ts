@@ -44,6 +44,18 @@ export function useAuth() {
     return { error }
   }
 
+  async function sendResetEmail(email: string, locale: string) {
+    return await authService.resetPassword(email, locale)
+  }
+
+  async function updatePassword(password: string, locale: string) {
+    const { error } = await authService.updatePassword(password)
+    if (!error) {
+      router.push(`/${locale}/login`)
+    }
+    return { error }
+  }
+
   return {
     user,
     session,
@@ -51,6 +63,8 @@ export function useAuth() {
     isAuthenticated: !!session,
     signIn,
     signUp,
-    signOut
+    signOut,
+    sendResetEmail,
+    updatePassword,
   }
 }
