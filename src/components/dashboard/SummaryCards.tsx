@@ -28,11 +28,39 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({ transactions }) => {
   )
 
   const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat(locale === 'fr' ? 'fr-FR' : 'en-US', { 
-      style: 'currency', 
-      currency: 'EUR' 
+    return new Intl.NumberFormat(locale === 'fr' ? 'fr-FR' : 'en-US', {
+      style: 'currency',
+      currency: 'EUR'
     }).format(val)
   }
+
+  const savingsRate = income > 0 ? ((income - expense) / income) * 100 : null
+
+  const statusKey = savingsRate === null
+    ? 'heroStatusNoData'
+    : savingsRate > 50
+      ? 'heroStatusExcellent'
+      : savingsRate > 20
+        ? 'heroStatusGood'
+        : savingsRate >= 0
+          ? 'heroStatusFair'
+          : 'heroStatusCritical'
+
+  const progressWidth = savingsRate === null
+    ? 0
+    : savingsRate < 0
+      ? 100
+      : Math.min(100, savingsRate)
+
+  const progressColor = statusKey === 'heroStatusExcellent'
+    ? 'rgba(134, 239, 172, 0.9)'   // green
+    : statusKey === 'heroStatusGood'
+      ? 'var(--color-secondary-container)'
+      : statusKey === 'heroStatusFair'
+        ? 'rgba(251, 191, 36, 0.9)'  // amber
+        : statusKey === 'heroStatusCritical'
+          ? 'rgba(239, 68, 68, 0.9)'   // red
+          : 'rgba(255, 255, 255, 0.2)'
 
   return (
     <div className={styles.container}>
@@ -42,9 +70,9 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({ transactions }) => {
         <div className={styles.heroValue}>{formatCurrency(balance)}</div>
         <div className={styles.heroFooter}>
           <div className={styles.heroStatus}>
-            <span className={styles.statusLabel}>{t('heroStatus')}</span>
+            <span className={styles.statusLabel}>{t(statusKey)}</span>
             <div className={styles.progressBar}>
-              <div className={styles.progressFill} style={{ width: '64%' }}></div>
+              <div className={styles.progressFill} style={{ width: `${progressWidth}%`, backgroundColor: progressColor }}></div>
             </div>
           </div>
           <div className={styles.heroMeta}>{t('heroUpdated')}</div>
